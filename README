@@ -6,3 +6,5 @@ The point of this is to guess the outcome of a football game based on a few know
 It first takes a few stats as inputs and then uses those to calculate the outcomes.
 
 Hopefully this is fairly self explanetory.
+
+The math behind the program was supplied by Butch.

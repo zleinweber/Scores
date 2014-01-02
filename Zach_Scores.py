@@ -1,4 +1,4 @@
-from os import system
+from os import system as sy
 
 class Scores_App(object):
 
@@ -9,34 +9,45 @@ class Scores_App(object):
 		self.Home = {
 			'Points': 0,
 			'Points Allowed': 0,
-			'Games Played': 0}
+			'Games Played': 0,
+			'AVGP': 0,
+			'AVGPA': 0}
 		self.Visitor = { 
 			'Points': 0, 
 			'Points Allowed': 0, 
-			'Games Played': 0}
-		self.stat_choose()
+			'Games Played': 0,
+			'AVGP': 0,
+			'AVGPA': 0}
+		self.stat_fill()
 		print self.Home
+		self.Home_Score()
 
-	def stat_populate(self, statvar):
+	def stat_ask(self, statvar):
 		curstat = statvar
-		print 'Home Team %s?' % curstat
 		try:
+			sy('clear')
+			print 'Home Team %s?' % curstat
 			self.Home[curstat] = int(raw_input('> '))
+			print 'Visitor %s?' % curstat
+			self.Visitor[curstat] = int(raw_input('> '))
 		except ValueError:
 			print 'Type a Number!'
-			self.stat_populate(curstat)
+			self.stat_ask(curstat)
 
-	def stat_choose(self):
+	def stat_fill(self):
 		n = 0
 		for item in self.Stats:
-			self.stat_populate(self.Stats[n])
+			self.stat_ask(self.Stats[n])
 			n+= 1
+		self.Home['AVGP'] = self.Home['Points'] / self.Home['Games Played']
+		self.Home['AVGPA'] = self.Home['Points Allowed'] / self.Home['Games Played']
+		
 
 	def Home_Score(self):
 		
-		self.home_score_for = ((self.HPF / 17) + 3)
-		
-		print self.home_score_for
+		self.home_score = ((self.Home['AVGP'] - self.Visitor['AVGPA']) / 2) + self.Visitor['AVGPA'] + 3
+		print '\n'
+		print self.home_score
 
 
 ## home_score_against HPA / 17
