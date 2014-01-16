@@ -79,9 +79,17 @@ class Scores_App(object):
 	# There are two different calculations that are condition based.
 	def Home_Score(self):
 		
-		self.home_score = ((self.Home['AVGP'] - self.Visitor['AVGPA']) / 2) + self.Visitor['AVGPA'] + 3
+		if self.Home['AVGP'] >= self.Visitor['AVGPA']:
+			self.home_score = ((self.Home['AVGP'] - self.Visitor['AVGPA']) / 2) + self.Visitor['AVGPA'] + 3
+		else:
+			self.home_score = ((self.Visitor['AVGPA'] - self.Home['AVGP']) / 2) + self.Home['AVGP'] + 3
+
+		if self.Visitor['AVGP'] >= self.Home['AVGPA']:
+			self.away_score = ((self.Visitor['AVGP'] - self.Home['AVGPA']) / 2) + self.Home['AVGPA']
+		else:
+			self.away_score = ((self.Home['AVGPA'] - self.Visitor['AVGP']) / 2) + self.Visitor['AVGP']
 		print '\n'
-		print self.home_score
+		print 'Score: %s = %d and %s = %d' % (self.HName, self.home_score, self.VName, self.away_score) 
 
 
 
