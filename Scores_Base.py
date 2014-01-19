@@ -22,22 +22,12 @@ class Scores_App(object):
 		self.Home = {
 			'Points': 0,
 			'Points Allowed': 0,
-			'Games Played': 0,
-			'AVGP': 0,
-			'AVGPA': 0}
+			'Games Played': 0}
 		self.Visitor = { 
 			'Points': 0, 
 			'Points Allowed': 0, 
-			'Games Played': 0,
-			'AVGP': 0,
-			'AVGPA': 0}
-		# Init auto runs the method to populate the stats.  This will change I think.
+			'Games Played': 0}
 		self.stat_fill()
-		# This is just a placeholder to make sure everything populated as it should.
-		print self.Home
-		# This autoruns the method to calculate 'guessed score'.
-		# This will require user input in the future.
-		self.Home_Score()
 
 	# Stat population is broke into two methods.
 	# This one actually asks the user to input the stat.
@@ -71,27 +61,31 @@ class Scores_App(object):
 			# Add one to go to the next index point.
 			n += 1
 		# Calculates the remaining averages from the user input stats.
-		self.Home['AVGP'] = self.Home['Points'] / self.Home['Games Played']
-		self.Home['AVGPA'] = self.Home['Points Allowed'] / self.Home['Games Played']
+		hap = self.Home['Points'] / self.Home['Games Played']
+		hapa = self.Home['Points Allowed'] / self.Home['Games Played']
 		
+		vap = self.Visitor['Points'] / self.Visitor['Games Played']
+		vapa = self.Visitor['Points Allowed'] / self.Visitor['Games Played']
+			
+		hstat = [hap, hapa]
+		vstat = [vap, vapa]
+		self.Score_Calc(hstat, vstat)
+
+		print '\n'
+		print 'Score: %s = %d and %s = %d' % (self.HName, self.hsco, self.VName, self.vsco) 
 
 	# This method is the one that actually uses Butch's calculation.
 	# There are two different calculations that are condition based.
-	def Home_Score(self):
+	def Score_Calc(self, ht, vt):
+		self.hst = ht
+		self.vst = vt
 		
-		if self.Home['AVGP'] >= self.Visitor['AVGPA']:
-			self.home_score = ((self.Home['AVGP'] - self.Visitor['AVGPA']) / 2) + self.Visitor['AVGPA'] + 3
+		if self.hst[0] >= self.vst[1]:
+			self.hsco = round(((self.hst[0] - self.vst[1]) / 2) + self.vst[1] + 3)
 		else:
-			self.home_score = ((self.Visitor['AVGPA'] - self.Home['AVGP']) / 2) + self.Home['AVGP'] + 3
-
-		if self.Visitor['AVGP'] >= self.Home['AVGPA']:
-			self.away_score = ((self.Visitor['AVGP'] - self.Home['AVGPA']) / 2) + self.Home['AVGPA']
+			self.hsco = round(((self.vst[1] - self.hst[0]) / 2) + self.hst[0] + 3)
+		if self.vst[0] >= self.hst[1]:
+			self.vsco = round(((self.vst[0] - self.hst[1]) / 2) + self.hst[1])
 		else:
-			self.away_score = ((self.Home['AVGPA'] - self.Visitor['AVGP']) / 2) + self.Visitor['AVGP']
-		print '\n'
-		print 'Score: %s = %d and %s = %d' % (self.HName, self.home_score, self.VName, self.away_score) 
-
-
-
-app = Scores_App()
+			self.vsco = round(((self.hst[1] - self.vst[0]) / 2) + self.vst[0])
 

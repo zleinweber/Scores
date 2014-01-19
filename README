@@ -1,10 +1,16 @@
+Scores
 By Zach Leinweber
 
-This program was written by the request of one of my co-workers who is also interested in learning python.
 
 The point of this is to guess the outcome of a football game based on a few known stats.
 It first takes a few stats as inputs and then uses those to calculate the outcomes.
 
-Hopefully this is fairly self explanetory.
+There are two versions of this program.  The GUI and the CLI.
+The GUI version uses tkinter to draw a window and widgets.
+The CLI version just runs in the command line.
+
+Both versions rely on Scores_Base.py to run.
+Run the CLI version by executing Score_CLI.py
+Run the GUI version by executing Score_Gui.py
 
 The math behind the program was supplied by Butch.
